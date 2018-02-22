@@ -1,0 +1,18 @@
+<div class="container">
+	<%= render 'homes/user_show'%>
+	<div class="row">
+      <div class="col-lg-4 col-lg-offset-4 well">
+        <div class="login">
+		<% if current_user.role == "user"%>
+          <!-- <h3 class="text-center">Log in</h3> -->
+			<h3 class="text-center">Thank you for registering.</h3>
+			<p>We'll let you know once our product is ready.</p>
+		<% else %>
+			<h3 class="text-center">Thank you for registering</h3>
+			<p>We'll let you know once our product is ready.</p>
+		<% end %>
+        </div>
+      </div>
+    </div>
+		<%#= link_to "New Organization", new_organization_path %>
+</div>

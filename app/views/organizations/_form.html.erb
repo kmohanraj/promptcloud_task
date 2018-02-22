@@ -1,0 +1,278 @@
+
+        <h3 class="text-left">New Organization</h3>
+
+        <div class="new_form">
+            <%= form_for :organization, url: organizations_path,html: {class: 'org_form'}, method: :post, remote: true do |f| %>
+                <div class="row">
+                    <div class="col-3">
+                      <%= f.label :org_name, "Organization Name:" %>
+                      <%= f.text_field :org_name, class: "form-control",:id=>"textbox1"  %>
+                    </div>
+
+                    <div class="col-3">
+                      <%= f.label :org_identifier, "Organization Identifier:" %>
+                      <%= f.text_field :org_identifier, class: 'form-control', readonly: true, :id=>"textbox2" %>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-3">
+                      <%= f.label :first_name, "First Name:" %>
+                      <%= f.text_field :first_name, class: 'form-control' %>
+                    </div>
+
+
+                    <div class="col-3">
+                     <%= f.label :last_name, "Last Name:" %>
+                     <%= f.text_field :last_name, class: 'form-control' %>
+                    </div>
+
+                </div>
+
+                <div class="row">
+
+                    <div class="col-3">
+                      <%= f.label :address_line1, "Address1:" %>
+                      <%= f.text_field :address_line1, class: 'form-control' %>
+                     </div>
+
+                    <div class="col-3">
+                      <%= f.label :address_line2, "Address2:" %>
+                      <%= f.text_field :address_line2, class: 'form-control' %>
+                     </div>
+                </div>
+
+                <div class="row"> 
+                    <div class="col-3">
+                      <%= f.label :city, "City:" %>
+                      <%= f.text_field :city, class: 'form-control' %>
+                    </div>
+
+                    <div class="col-3">
+                      <%= f.label :state, "State:" %>
+                      <%= f.text_field :state, class: 'form-control' %>
+                     </div>
+                </div>
+
+                <div class="row">
+                     <div class="col-3">
+                      <%= f.label :country, "Country:" %>
+                      <%= f.text_field :country, class: 'form-control', :id=>'quantity' %><span id="errmsg"></span>
+                     </div>
+
+                     <div class="col-3">
+                     <%= f.label :zip_code, "Zip Code:" %>
+                       <%= f.text_field :zip_code, class: 'form-control', :id=>"numberonly" %>
+                     </div>
+                </div>
+                <br>
+
+                <div class="row">
+                  <div class="actions">
+                    <%= f.submit "Submit", class: 'btn btn-primary pull-right'  %>
+                  </div>
+                </div>
+
+            <% end %>
+      </div>
+
+<style type="text/css">
+  .new_form{
+    width: 100%;
+    float: left;
+    padding-left: 10%;
+    padding-top: 4%;
+  }
+  .actions{
+        width: 49%;
+    float: left;
+  }
+</style>
+
+<script>
+  jQuery('#numberonly').keyup(function() {
+    $(this).val($(this).val().replace(/[^0-9\.]/g,''));
+    // this.value = this.value.replace(/[^0-9\s]/g,'');
+    // alert("please enter number only.")
+  });
+</script>
+
+<script>
+  jQuery('#input').keyup(function(){
+    this.value = this.value.replace(/[^A-Z a-z\s\&]/g,'');
+  });
+</script>
+
+<script type="text/javascript">
+  var addressString = "~john smith~123 Street~Apt 4~New York~NY~12345~",
+    keys = "name address1 address2 city state zipcode".split(" "),
+    address = {};
+
+// clean up the string with the first replace
+// "abuse" the second replace to map the keys to the matches
+addressString.replace(/^~|~$/g).replace(/[^~]+/g, function(match){
+    address[ keys.unshift() ] = match;
+});
+</script>
+
+
+<%#==========================================================================================%>
+<script type="text/javascript">
+      $("#textbox1").keyup(function(){
+        var textinput = $('#textbox1').val().substring(0,20);
+    // $('#log').append('<br />Handler for .keyup() called - ' + textinput);
+        // var jIsHasKids = $('input#org_identifier').val().toLowerCase();
+
+        // var output1 = textinput.toLowerCase().replace(/[\s\@\!\$\&\~\)\(\|\""\:\?]/g,'_');
+        var output = textinput.toLowerCase().replace(/\s/g, "_").replace(/[\@\!\$\&\~\)\(\|\""\:\?\#\%\-\+\;\<\>/\{\.}]/g,'').replace(/[0-9]+/g, '');
+        // var output = output1.toLowerCase().replace(/[\s\@\!\$\&]/g,'');
+        
+        // var output = textinput.toLowerCase().replace(/[^A-Z a-z\s/]/g,'','_');
+        // var output = textinput.replace(/^~|~$/g);
+        // $(this).val($(this).val().replace(/[^a-z\.]/g,''));
+        $("#textbox2").val(output).toLowerCase().replace(/^~|~$/g).replace(/[^~]+/g);
+        // $("#textbox2").val(output);
+        
+        
+        
+    });
+</script>
+
+
+<%#==========================================================================================%>
+
+
+<script>
+
+  $(document).ready(function () {
+  $(".org_form").validate({
+  debug: true,
+  rules: {
+  "organization[org_name]": {required: true },
+  "organization[first_name]": {required: true},
+  "organization[last_name]": {required: true},
+  "organization[address_line1]": {required: true},
+  "organization[city]": {required: true},
+  "organization[state]": {required: true},
+  "organization[country]": {required: true},
+  "organization[zip_code]": {required: true, minlength: 6, maxlength: 6}
+  },
+  debug: false,
+  messages: {
+  "organization[org_name]": {required: "Please, enter a organization name "},
+  "organization[first_name]": {required: "please, enter a first name."},
+  "organization[last_name]": {required: "please, enter a last name."},
+  "organization[address_line1]": {required: "please, enter a address1."},
+  "organization[city]": {required: "please, enter a city."},
+  "organization[state]": {required: "please, enter a state."},
+  "organization[country]": {required: "please, enter a country."},
+  "organization[zip_code]": {required: "Please, enter 6 digit only"},
+  }
+  });
+  });
+</script>
+
+<script type="text/javascript">
+$('#txtbox').keyup(function (e) {
+    var $this = $(this);
+    setTimeout(function (e) {
+        if (($this.val()).match(/[^0-9]/g))
+        {
+            $("#errormsg").html("Only Numerical Characters allowed").show().delay(2500).fadeOut("slow");
+            return false;                       
+            setTimeout(function (e) {
+                $this.val(null);
+            },2500);
+        }                   
+    }, 5);
+});
+</script>
+<!-- 
+<script>
+  $(document).ready(function () {
+  //called when key is pressed in textbox
+  $("#quantity").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Please enter number only.").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+</script> -->
+
+<style type="text/css">
+#errmsg
+  {
+  color: red;
+}
+</style>
+
+<!-- <script type="text/javascript">
+var phone = $("input#org_name").val();
+if (phone !== "") {
+    //Check if phone is numeric
+    $("label#org_name_error").show(); //Show error
+    $("input#org_name").focus(); //Focus on field
+    return false;
+}
+</script>
+
+ -->
+
+<!-- <script type="text/javascript">
+  $(document).ready(function () {
+    $(".form").validate({
+        rules: {
+            "org_name": {
+                required: true,
+                minlength: 5
+            },
+            "org_identifier": {
+                required: true,
+                email: true
+            }
+        },
+        messages: {
+            "org_name": {
+                required: "Please, enter a name"
+            },
+            "org_identifier": {
+                required: "Please, enter an email",
+                email: "Email is invalid"
+            }
+        },
+        submitHandler: function (form) { // for demo
+            alert('valid form submitted'); // for demo
+            return false; // for demo
+        }
+    });
+
+});
+</script> -->
+<style type="text/css">
+  body {
+    padding: 20px;
+}
+
+label {
+    display: block;
+}
+
+input.error {
+    border: 1px solid red;
+}
+
+label.error {
+    font-weight: normal;
+    color: red;
+}
+
+button {
+    display: block;
+    margin-top: 20px;
+}
+</style>

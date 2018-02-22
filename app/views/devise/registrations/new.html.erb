@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row">
+    <div class="col-lg-4 col-lg-offset-4 well">
+      <div class="login">
+        <h3 class="text-center">Sign up</h3>
+        <%#= form_for(resource, as: resource_name, url: registration_path(resource_name),html: {class: 'new_user'}) do |f| %>
+        <br>
+        <%= form_for (resource) as: resource_name, url: registration_path(resource),html: {class: 'new_form'}, method: :post, remote: true do |f| %>
+
+          <div class="form-group">
+            <%= f.label :email %>
+            <%= f.email_field :email, autofocus: true, autocomplete: "email", class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password %>
+            <% if @minimum_password_length %>
+            <em>(<%= @minimum_password_length %> characters minimum)</em>
+            <% end %>
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+          </div>
+
+          <div class="form-group">
+            <%= f.label :password_confirmation %>
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+          </div>
+
+          <div class="actions">
+            <%= f.submit "Sign up", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+        <%= render "devise/shared/links" %>
+
+      </div>
+    </div> 
+  </div>
+</div>
+
+<script>
+
+  $(document).ready(function () {
+  $(".new_form").validate({
+  debug: true,
+  rules: {
+  "user[email]": {required: true, email: true, unique: true},
+  "user[password]": {required: true, minlength: 6},
+  "user[password_confirmation]": {required: true, equalTo: "#user_password"}
+  },
+  debug: false,
+  messages: {
+  "user[email]": {required: "please, enter a email"},
+  "user[password]": {required: "please, enter a password" },
+  "user[password_confirmation]": {required: "please,enter a password confirmation" }
+  }
+  });
+  });
+</script>
+
+<script type="text/javascript">
+  $( "#form" ).validate({
+    messages: {
+        name: "Name is required.",
+        email: {
+            required: "Email is required.",
+            email: "You must provide a valid email address."
+        }
+    },
+    focusInvalid: false,
+    submitHandler: function() {
+        alert( "Successful submission" );         
+    }
+});
+</script>
+
+<style type="text/css">
+  .login{
+      width: 100%;
+    margin-left: 97%;
+    margin-top: 16%;
+}
+
+</style>
+<style type="text/css">
+  body {
+    padding: 20px;
+}
+
+label {
+    display: block;
+}
+
+input.error {
+    border: 1px solid red;
+}
+
+label.error {
+    font-weight: normal;
+    color: red;
+}
+
+button {
+    display: block;
+    margin-top: 20px;
+}
+</style>

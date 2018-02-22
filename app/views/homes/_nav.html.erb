@@ -1,0 +1,42 @@
+<div class="row action-button-margins">
+  <div class="col-md-3">
+    <%#= link_to "New Organization", new_organization_path, class: "btn btn-outline-primary"%>
+  </div>
+  <div class="col-md-3">
+    <%#= link_to "Show All", root_path, class: "btn btn-outline-primary btn-md" %>
+  </div>
+
+
+  <div class="col-md-3">
+    <% if current_user.role == "user"%>
+       <b><%= link_to "New Organization",new_organization_path, class: "btn btn-outline-primary" %></b>
+    <% end %>
+    <% if current_user.role == "admin" %>
+      <b><%= link_to "Admin",admins_path, class: "btn btn-outline-primary" %></b>
+    <% end %>
+    <div class="nav">
+      <% if user_signed_in? %>
+                <b class="hi"> Hi! </b><%= current_user.email %>
+
+                <b><%= link_to 'Log out', destroy_user_session_path, method: :delete %></b>
+            </li>
+          <% else %>
+            <%= link_to 'Sign up', new_user_registration_path %>
+            <%= link_to 'Sign in', user_session_path %>
+          <% end %>
+    </div>
+  </div>
+
+</div>
+
+<style type="text/css">
+  .nav{
+    width: 113%;
+    float: right;
+    margin-right: -113%;
+  }
+  .hi{
+    color: black;
+    background-color: #94a294;
+  }
+</style>
