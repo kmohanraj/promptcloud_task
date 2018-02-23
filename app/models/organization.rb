@@ -1,5 +1,5 @@
 class Organization < ApplicationRecord
-  has_many :users
+  # has_many :users
 
 
   validates :zip_code, length: { is: 6 }

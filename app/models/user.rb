@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
-  belongs_to :organization
+  # belongs_to :organization
   validates :email, uniqueness: true
 
   enum role: [:user, :admin]
