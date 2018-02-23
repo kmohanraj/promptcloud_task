@@ -24,8 +24,8 @@ class OrganizationsController < ApplicationController
     respond_to do |format|
       if @organization.save
         format.json {render json: @organization, status: :created}
-        format.js {redirect_to homes_path}
-        format.html {redirect_to home_path, flash: { success: "Invoice Saved Successfully" }}
+        format.js {redirect_to root_path }
+        format.html {redirect_to root_path, flash: { success: "Invoice Saved Successfully" }}
       else
         format.json {render json: @organization.errors.full_messages, status: :unprocessable_entity }
         format.js
