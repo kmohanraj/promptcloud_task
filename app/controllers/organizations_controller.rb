@@ -18,15 +18,14 @@ class OrganizationsController < ApplicationController
   end
 
   def create
-    # invoice_params = invoice_permit_params(params)
     @user = current_user.id
     @organization = Organization.new(organization_params)
     @organization.user_id = @user
     respond_to do |format|
       if @organization.save
-        format.html {redirect_to home_path, flash: { success: "Invoice Saved Successfully" }}
-        format.js {redirect_to homes_path}
         format.json {render json: @organization, status: :created}
+        format.js {redirect_to homes_path}
+        format.html {redirect_to home_path, flash: { success: "Invoice Saved Successfully" }}
       else
         format.json {render json: @organization.errors.full_messages, status: :unprocessable_entity }
         format.js
