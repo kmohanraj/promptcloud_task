@@ -3,7 +3,7 @@ class Organization < ApplicationRecord
 
 
   validates :zip_code, length: { is: 6 }
-  validates :org_name, uniqueness:{ messages: "already taken" }
+  validates :org_name, uniqueness: true
 
   # def self.search(search)
   #   # where("locality LIKE ?", "%#{search}%").having("properties.status = 1")
