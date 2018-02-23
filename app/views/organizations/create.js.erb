@@ -1,0 +1,12 @@
+
+<% if  @organization.errors.empty? %>
+  $('.org_form')[0].reset();
+   setTimeout(function(){
+    window.location.reload(true);
+    }, 2000);
+<%else%>
+  $('.errors_organization').append('<p class = "error_msg" ><%= @organization.errors.full_messages.join(' , ') %></p>');
+  setTimeout(function(){
+      $('.error_msg').remove();
+    }, 3000);
+<%end%>
