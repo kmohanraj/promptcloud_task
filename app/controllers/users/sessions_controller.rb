@@ -23,8 +23,6 @@ class Users::SessionsController < Devise::SessionsController
     redirect_to homes_path
     elsif @user.role == "admin"
     redirect_to new_organization_path
-    else
-      redirect_to homes_path
     end
   end
 
