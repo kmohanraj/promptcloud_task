@@ -16,13 +16,12 @@ class Users::SessionsController < Devise::SessionsController
     self.resource = warden.authenticate!(auth_options)
     set_flash_message!(:notice, :signed_in)
     sign_in(resource_name, resource)
-    
     @user = User.find_by(params[:email])
     # if @user.present? and @user.role == "user"
     if @user.present? & @user.role == "user"
-    redirect_to homes_path
-    elsif @user.role == "admin"
     redirect_to new_organization_path
+    elsif @user.role == "admin"
+    redirect_to homes_path
     end
   end
 
